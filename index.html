@@ -217,9 +217,12 @@
     .hex-frame {
       width: 240px; height: 270px;
       clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
       position: relative; overflow: hidden;
       border: none; background: var(--green3);
       animation: hexPulse 4s ease-in-out infinite;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
     @keyframes hexPulse {
       0%,100% { box-shadow: 0 0 20px rgba(0,255,65,0.3); }
@@ -229,6 +232,10 @@
       width: 100%; height: 100%;
       object-fit: cover; object-position: top;
       display: block;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
     .hex-frame::after {
       content: ''; position: absolute; inset: 0;
@@ -329,7 +336,14 @@
       padding: 6px 16px; border-radius: 2px;
       font-family: 'Share Tech Mono', monospace; font-size: 0.75rem;
       letter-spacing: 1px;
+      display: inline-flex; align-items: center; gap: 0.4rem;
     }
+
+    /* ─── FLAG IMAGES (cross-browser) ─── */
+    .flag-btn { width: 22px; height: auto; border-radius: 2px; display: block; }
+    .flag-pill { width: 18px; height: auto; border-radius: 2px; flex-shrink: 0; }
+    .flag-node { width: 26px; height: auto; border-radius: 2px; }
+    .flag-cert { width: 40px; height: auto; border-radius: 2px; }
     .lang-native { background: rgba(0,255,65,0.15); border: 1px solid var(--green); color: var(--green); }
     .lang-cert   { background: rgba(0,255,65,0.08); border: 1px solid var(--green3); color: var(--green2); }
 
@@ -808,9 +822,9 @@
     <li><a href="#contact"  data-i18n="nav_contact">Contact</a></li>
   </ul>
   <div class="lang-switcher">
-    <button class="lang-btn active" data-lang="en" title="English">🇬🇧</button>
-    <button class="lang-btn" data-lang="de" title="Deutsch">🇩🇪</button>
-    <button class="lang-btn" data-lang="sr" title="Srpski">🇷🇸</button>
+    <button class="lang-btn active" data-lang="en" title="English"><img src="https://flagcdn.com/gb.svg" alt="English" class="flag-btn"></button>
+    <button class="lang-btn" data-lang="de" title="Deutsch"><img src="https://flagcdn.com/de.svg" alt="Deutsch" class="flag-btn"></button>
+    <button class="lang-btn" data-lang="sr" title="Srpski"><img src="https://flagcdn.com/rs.svg" alt="Srpski" class="flag-btn"></button>
   </div>
 </nav>
 
@@ -874,9 +888,9 @@
       <p data-i18n="about_p1">Born in Novi Sad, Serbia, I developed a passion for technology from an early age. After attending the prestigious Gymnasium "Jovan Jovanović Zmaj" with a focus on IT, I moved to Germany to pursue a degree in Cybersecurity at DHBW Stuttgart.</p>
       <p data-i18n="about_p2">I am an active Linux user and enjoy exploring system internals, networking concepts, and security challenges. My goal is to combine technical expertise with real-world problem solving to contribute to a safer digital world.</p>
       <div class="lang-pills">
-        <span class="lang-pill lang-native">🇷🇸 Serbian — Native</span>
-        <span class="lang-pill lang-cert">🇩🇪 German — C1 (DaF)</span>
-        <span class="lang-pill lang-cert">🇬🇧 English — B2 (FCE)</span>
+        <span class="lang-pill lang-native"><img src="https://flagcdn.com/rs.svg" alt="RS" class="flag-pill"> Serbian — Native</span>
+        <span class="lang-pill lang-cert"><img src="https://flagcdn.com/de.svg" alt="DE" class="flag-pill"> German — C1 (DaF)</span>
+        <span class="lang-pill lang-cert"><img src="https://flagcdn.com/gb.svg" alt="EN" class="flag-pill"> English — B2 (FCE)</span>
       </div>
     </div>
     <div class="reveal">
@@ -1093,19 +1107,19 @@
         <div class="branch-children">
           <div class="tree-node">
             <div class="node-circle level3">
-              <span class="node-icon">🇷🇸</span>
+              <span class="node-icon"><img src="https://flagcdn.com/rs.svg" alt="RS" class="flag-node"></span>
               <span class="node-label">NATIVE</span>
             </div>
           </div>
           <div class="tree-node">
             <div class="node-circle level3">
-              <span class="node-icon">🇩🇪</span>
+              <span class="node-icon"><img src="https://flagcdn.com/de.svg" alt="DE" class="flag-node"></span>
               <span class="node-label">C1</span>
             </div>
           </div>
           <div class="tree-node">
             <div class="node-circle level3">
-              <span class="node-icon">🇬🇧</span>
+              <span class="node-icon"><img src="https://flagcdn.com/gb.svg" alt="GB" class="flag-node"></span>
               <span class="node-label">B2</span>
             </div>
           </div>
@@ -1166,13 +1180,13 @@
     </div>
     <div class="certs-grid">
       <div class="cert-card reveal">
-        <span class="cert-icon">🇩🇪</span>
+        <span class="cert-icon"><img src="https://flagcdn.com/de.svg" alt="DE" class="flag-cert"></span>
         <div class="cert-name">DaF Zertifikat</div>
         <div class="cert-org">Goethe-Institut / TestDaF</div>
         <div class="cert-level">LEVEL C1 — PROFICIENT</div>
       </div>
       <div class="cert-card reveal">
-        <span class="cert-icon">🇬🇧</span>
+        <span class="cert-icon"><img src="https://flagcdn.com/gb.svg" alt="GB" class="flag-cert"></span>
         <div class="cert-name">FCE Certificate</div>
         <div class="cert-org">Cambridge English</div>
         <div class="cert-level">LEVEL B2 — UPPER INTERMEDIATE</div>
