@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aleksa Kraguljac | Cybersecurity Portfolio</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('9mbM8rgSwvztpdTu2');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <style>
@@ -1644,13 +1646,28 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 function handleFormSubmit(e) {
   e.preventDefault();
   const btn = e.target.querySelector('button[type=submit]');
-  btn.textContent = '✓ SENT';
-  btn.style.background = '#007a1f';
-  setTimeout(() => {
-    btn.textContent = i18n[currentLang].form_send;
-    btn.style.background = '';
+  const inputs = e.target.querySelectorAll('input, textarea');
+  btn.textContent = 'SENDING...';
+  btn.disabled = true;
+
+  emailjs.send('service_ue4ilid', 'template_dqq82wf', {
+    name:    inputs[0].value,
+    email:   inputs[1].value,
+    message: inputs[2].value,
+  }).then(() => {
+    btn.textContent = '✓ SENT';
+    btn.style.background = '#007a1f';
     e.target.reset();
-  }, 3000);
+    setTimeout(() => {
+      btn.textContent = i18n[currentLang].form_send;
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+  }).catch(() => {
+    btn.textContent = '✗ FAILED — TRY AGAIN';
+    btn.style.background = '#7a0000';
+    btn.disabled = false;
+  });
 }
 
 // ─────────────────────────────────────────────
